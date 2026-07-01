@@ -1,0 +1,218 @@
+# Curso de Git para Empezar 🚀
+
+Guía práctica para aprender Git desde cero, pensada para seguir paso a paso.
+
+---
+
+## 1. ¿Qué es Git y por qué usarlo?
+
+Git es un **sistema de control de versiones**: guarda el historial completo de los cambios en tu código, permite volver atrás si algo se rompe, y facilita que varias personas trabajen en el mismo proyecto sin pisarse el trabajo.
+
+No confundir con **GitHub/GitLab/Bitbucket**: esos son servicios en la nube que alojan repositorios Git. Git es la herramienta; GitHub es un lugar donde guardar y compartir lo que Git gestiona.
+
+---
+
+## 2. Instalación
+
+- **Windows**: descarga desde [git-scm.com](https://git-scm.com) e instala con las opciones por defecto.
+- **Mac**: `brew install git` (con Homebrew) o instala Xcode Command Line Tools.
+- **Linux (Debian/Ubuntu)**: `sudo apt install git`
+
+Verifica que quedó instalado:
+```bash
+git --version
+```
+
+### Configuración inicial (una sola vez)
+```bash
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+```
+
+---
+
+## 3. Conceptos clave (entender esto ahorra mucha confusión)
+
+| Concepto | Qué es |
+|---|---|
+| **Repositorio (repo)** | La carpeta de tu proyecto rastreada por Git |
+| **Commit** | Una "foto" guardada del estado de tus archivos en un momento dado |
+| **Working directory** | Tus archivos tal como están ahora, editándolos |
+| **Staging area (índice)** | Zona intermedia donde preparas los cambios antes de confirmarlos |
+| **Branch (rama)** | Una línea de desarrollo independiente |
+| **Remote** | Una copia del repo alojada en otro lugar (ej. GitHub) |
+
+**El flujo básico es:**
+```
+Working directory  →  Staging area  →  Repositorio (commit)
+   (editas)              (git add)         (git commit)
+```
+
+---
+
+## 4. Crear tu primer repositorio
+
+```bash
+mkdir mi-proyecto
+cd mi-proyecto
+git init
+```
+
+Esto crea una carpeta oculta `.git` que es donde vive todo el historial.
+
+---
+
+## 5. El ciclo básico de trabajo
+
+### Ver el estado actual
+```bash
+git status
+```
+Te dice qué archivos cambiaron, cuáles están en staging y cuáles no.
+
+### Agregar cambios al staging
+```bash
+git add archivo.txt      # un archivo específico
+git add .                # todos los cambios
+```
+
+### Confirmar los cambios (commit)
+```bash
+git commit -m "Mensaje describiendo el cambio"
+```
+
+### Ver el historial
+```bash
+git log
+git log --oneline        # versión resumida, muy útil
+```
+
+**Regla de oro:** haz commits pequeños y frecuentes, con mensajes claros ("Agrega validación de email", no "cambios").
+
+---
+
+## 6. Deshacer cosas (lo que todos necesitan tarde o temprano)
+
+```bash
+git checkout -- archivo.txt     # descarta cambios no guardados en staging
+git reset archivo.txt           # saca un archivo del staging (sin perder el cambio)
+git commit --amend              # corrige el último commit (mensaje o contenido)
+git revert <hash>                # crea un commit que revierte otro (seguro en historial compartido)
+git reset --hard <hash>          # vuelve todo a un commit anterior (¡cuidado, borra cambios!)
+```
+
+---
+
+## 7. Ramas (branches)
+
+Las ramas te dejan trabajar en algo nuevo sin afectar el código principal.
+
+```bash
+git branch nueva-funcion         # crea una rama
+git checkout nueva-funcion       # te mueves a esa rama
+# o en un solo paso:
+git checkout -b nueva-funcion
+
+git branch                       # lista todas las ramas
+```
+
+### Unir ramas (merge)
+```bash
+git checkout main
+git merge nueva-funcion
+```
+
+Si hay conflictos, Git te marca las líneas en conflicto dentro del archivo. Los editas manualmente, luego:
+```bash
+git add archivo-con-conflicto.txt
+git commit
+```
+
+---
+
+## 8. Trabajar con repositorios remotos (GitHub, GitLab, etc.)
+
+### Conectar tu repo local a uno remoto
+```bash
+git remote add origin https://github.com/usuario/repo.git
+```
+
+### Subir cambios
+```bash
+git push origin main
+```
+
+### Descargar cambios de otros
+```bash
+git pull origin main
+```
+
+### Clonar un repositorio existente
+```bash
+git clone https://github.com/usuario/repo.git
+```
+
+---
+
+## 9. Flujo típico del día a día
+
+```bash
+git pull                       # trae lo último antes de empezar
+git checkout -b mi-cambio      # crea una rama para tu tarea
+# ... editas archivos ...
+git add .
+git commit -m "Descripción del cambio"
+git push origin mi-cambio      # sube tu rama
+# Luego abres un Pull Request en GitHub/GitLab
+```
+
+---
+
+## 10. Buenas prácticas para empezar bien
+
+- Escribe mensajes de commit claros y en presente ("Agrega", no "Agregado").
+- Haz commits chicos y enfocados en una sola cosa.
+- Usa un archivo `.gitignore` para excluir archivos que no deben subirse (node_modules, .env, archivos temporales).
+- No trabajes directamente sobre `main`; usa ramas para cada nueva tarea.
+- Haz `git pull` antes de empezar a trabajar para evitar conflictos innecesarios.
+
+Ejemplo de `.gitignore` básico:
+```
+node_modules/
+.env
+*.log
+.DS_Store
+```
+
+---
+
+## 11. Práctica sugerida
+
+1. Crea una carpeta, inicializa un repo con `git init`.
+2. Crea un archivo `README.md` y haz tu primer commit.
+3. Crea una rama, modifica el archivo, haz commit en esa rama.
+4. Vuelve a `main` y haz merge de tu rama.
+5. Crea un repositorio en GitHub y sube tu proyecto local con `git remote add` + `git push`.
+6. Clona ese mismo repo en otra carpeta para practicar `git clone` y `git pull`.
+
+---
+
+## 12. Chuleta rápida de comandos
+
+```bash
+git init                  # iniciar repo
+git status                # ver estado
+git add .                 # preparar cambios
+git commit -m "msg"       # confirmar cambios
+git log --oneline         # ver historial
+git branch                # listar ramas
+git checkout -b nombre    # crear y cambiar de rama
+git merge nombre          # unir rama
+git push origin rama      # subir cambios
+git pull origin rama      # bajar cambios
+git clone url             # clonar repo
+```
+
+---
+
+¿Quieres que sigamos con un tema específico —como resolver conflictos de merge, rebase, o cómo colaborar en equipo con Pull Requests?
