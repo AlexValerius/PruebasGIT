@@ -44,10 +44,8 @@ git config --global user.email "tu@email.com"
 
 **El flujo básico es:**
 ```
-Working directory  →  Staging area  →  Repositorio (commit)
-   (editas)              (git add)         (git commit)
+Working directory  →  Staging area  →  Repositorio (commit)(editas)              (git add)         (git commit)
 ```
-
 ---
 
 ## 4. Crear tu primer repositorio
@@ -216,3 +214,10 @@ git clone url             # clonar repo
 ---
 
 ¿Quieres que sigamos con un tema específico —como resolver conflictos de merge, rebase, o cómo colaborar en equipo con Pull Requests?
+
+
+git config --global user.name "Alejandro"
+git config --global user.email "ale.gomez.valerio@gmail.com"
+
+
+
